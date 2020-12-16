@@ -6,10 +6,12 @@ import dateFilter from '@/filters/date.filter.js'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 import Vuelidate from 'vuelidate'
+import messagePlugin from '@/utilus/message.plugin'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
+Vue.use(messagePlugin)
 Vue.filter('date', dateFilter)
 
 new Vue({

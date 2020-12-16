@@ -56,6 +56,7 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
+import messages from '@/utilus/messages.js'
 
   export default {
     name: 'login',
@@ -66,6 +67,11 @@ import { email, required, minLength } from 'vuelidate/lib/validators'
     validations: {
       email: {email, required},
       password: {required, minLength: minLength(8)}
+    },
+    mounted() {
+      if (messages[this.$route.query.message]){
+        this.$message(messages[this.$route.query.message])
+      }
     },
     methods: {
       submitHandler() {
