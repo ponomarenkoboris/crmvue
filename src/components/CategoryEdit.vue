@@ -24,11 +24,11 @@
                     id="name"
                     type="text"
                     v-model="title"
-                    :class="{invalid: $v.title.$dirty && !v$.title.required}"
+                    :class="{invalid: $v.title.$dirty && !$v.title.required}"
                 >
                 <label for="name">Название</label>
                 <span 
-                v-if="$v.title.$dirty && !v$.title.required"
+                v-if="$v.title.$dirty && !$v.title.required"
                 class="helper-text invalid"
                 >Введите название категории</span>
               </div>
@@ -56,6 +56,7 @@
 </template>
 <script>
 import {required, minValue} from 'vuelidate/lib/validators'
+
 export default {
   props: {
     categories: {
@@ -109,7 +110,7 @@ export default {
     M.updateTextFields()
   },
   destroyed() {
-    if (this.select && this.select.destroyd){
+    if (this.select && this.select.destroy){
       this.select.destroy()
     }
   }
