@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import dateFilter from '@/filters/date.filter.js'
 import currencyFilter from './filters/currency.filter'
+import localizeFilter from './filters/localize.filter'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 import Vuelidate from 'vuelidate'
@@ -21,6 +22,7 @@ Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
+Vue.filter('localize', localizeFilter)
 Vue.filter('date', dateFilter)
 Vue.filter('currency', currencyFilter)
 Vue.directive('tooltip', toolTipDirective)
