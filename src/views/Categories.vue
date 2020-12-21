@@ -8,7 +8,7 @@
       <div class="row" v-else>
         <CategoryCreate @created="addNewCategory" />
         <CategoryEdit v-if="categories.length" :categories="categories" @updated="updateCategories" :key="categories.length + updateCount"/>
-        <p v-else class="center">Категорий пока нет</p>
+        <p v-else class="center">{{'Category_emptyMessage' | localize}}</p>
       </div>
     </section>
   </div>
@@ -19,6 +19,11 @@ import CategoryCreate from '@/components/CategoryCreate'
 import CategoryEdit from '@/components/CategoryEdit'
 export default {
   name: 'categories',
+  metaInfo() {
+    return {
+      title: this.$title('Menu_Categories')
+    }
+  },
   data: () => ({
     categories: [],
     loading: true,

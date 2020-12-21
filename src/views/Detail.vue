@@ -3,7 +3,7 @@
     <Loader v-if="loading"/>
     <div v-else-if="record">
       <div class="breadcrumb-wrap">
-        <router-link to="/history" class="breadcrumb">История</router-link>
+        <router-link to="/history" class="breadcrumb">{{'Menu_History' | localize}}</router-link>
         <a @click.prevent class="breadcrumb">
           {{ record.type === 'income' ? 'Доход' : 'Расход' }}
         </a>
@@ -14,9 +14,9 @@
             record.type === 'outcome' ? 'red' : 'green'
             ">
             <div class="card-content white-text">
-              <p>Описание: {{ record.description }}</p>
-              <p>Сумма: {{ record.amount }}</p>
-              <p>Категория: {{ record.categoryName }}</p>
+              <p>{{'Detail_description' | localize}}: {{ record.description }}</p>
+              <p>{{'Detail_amount' | localize}}: {{ record.amount }}</p>
+              <p>{{'Detail_category' | localize}}: {{ record.categoryName }}</p>
 
               <small>{{ record.date | date('datetime') }}</small>
             </div>
@@ -24,12 +24,17 @@
         </div>
       </div>
     </div>
-    <p class="center" v-else>Запись с id={{$route.params.id}} не найдена</p>
+    <p class="center" v-else>{{'DetailNotFaondMessage1' | localize}}={{$route.params.id}} {{'DetailNotFaondMessage2' | localize}}</p>
   </div>
 </template>
 <script>
 export default {
   name: 'Detail',
+  metaInfo() {
+    return {
+      title: this.$title('Detail_Title')
+    }
+  },
   data: () => ({
     recprd: null,
     loading: true

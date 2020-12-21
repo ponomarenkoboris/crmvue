@@ -48,7 +48,15 @@
         Введите имя 
         </small>
       </div>
-      <p>
+      <div class="switch">
+        <label>
+          English
+          <input type="checkbox" v-model="isRuLocal">
+          <span class="lever"></span>
+          Русский
+        </label>
+      </div>
+      <p style="display: block; margin-top: 2rem">
         <label>
           <input type="checkbox" v-model="agree"/>
           <span>С правилами согласен</span>
@@ -78,11 +86,17 @@
 import { email, required, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'register',
+  metaInfo() {
+    return {
+      title: this.$title('ProfileTitle')
+    }
+  },
   data: () => ({
     email: '',
     password: '',
     name: '',
-    agree: false
+    agree: false,
+    isRuLocal: true
   }),
   validations: {
     email: {email, required},

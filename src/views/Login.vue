@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{'HomeBookkeeping' | localize}}</span>
       <div class="input-field">
         <input
             id="email"
@@ -13,11 +13,11 @@
         <small 
         class="helper-text invalid"
         v-if="$v.email.$dirty && !$v.email.required"
-        >Поле не должно быть пустым</small>
+        >{{'EmailFieldWarning' | localize}}</small>
         <small 
         class="helper-text invalid"
         v-else-if="$v.email.$dirty && !$v.email.email"
-        >Некорректный Email</small>
+        >{{'EmailIsNotCorrect' | localize}}</small>
       </div>
       <div class="input-field">
         <input
@@ -26,29 +26,37 @@
             v-model.trim="password"
             :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Пароль</label>
+        <label for="password">{{'Password' | localize}}</label>
         <small class="helper-text invalid"
         v-if="$v.password.$dirty && !$v.password.required"
-        >Введите пароль</small>
+        >{{'EntryPassword' | localize}}</small>
         <small class="helper-text invalid"
         v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Некорректный пароль (Минимальное колличество символов: {{$v.password.$params.minLength.min}})</small>
+        >{{'PasswordDontCorrect' | localize}} {{$v.password.$params.minLength.min}})</small>
       </div>
     </div>
     <div class="card-action">
-      <div>
+      <div class="switch">
+        <label>
+          English
+          <input type="checkbox" v-model="isRuLocal">
+          <span class="lever"></span>
+          Русский
+        </label>
+      </div>
+      <div style="margin-top: 2rem">
         <button
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Войти
+          {{'Entry' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{'DontHaveTheAcc' | localize}}
+        <router-link to="/register">{{'Registration' | localize}}</router-link>
       </p>
     </div>
   </form>
@@ -60,9 +68,15 @@ import messages from '@/utilus/messages.js'
 
   export default {
     name: 'login',
+    metaInfo() {
+    return {
+      title: this.$title('ProfileTitle')
+    }
+  },
     data: () => ({
       email: '',
-      password: ''
+      password: '',
+      isRuLocal: true
     }),
     validations: {
       email: {email, required},
@@ -81,7 +95,8 @@ import messages from '@/utilus/messages.js'
         }
         const formData = {
           email: this.email,
-          password: this.password
+          password: this.password,
+          local: this.isRuLocal ? 'ru-RU' : 'en-US'
         }
 
         try {

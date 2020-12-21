@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{'RecordHistoryTitle' | localize}}</h3>
     </div>
 
     <div class="history-chart">
@@ -10,7 +10,7 @@
 
     <Loader v-if="loading"/>
 
-    <p class="center" v-else-if="!records.length">Записей пока нет. <router-link to="/record">Добавьте первую</router-link></p>
+    <p class="center" v-else-if="!records.length">{{'NoEntriesYetMessage' | localize}}. <router-link to="/record">{{'AddFirstMessage' | localize}}</router-link></p>
 
     <section v-else>
       <HistoryTable :records="items" />
@@ -33,6 +33,11 @@ import { Pie } from 'vue-chartjs'
 
 export default {
   name: 'history',
+  metaInfo() {
+    return {
+      title: this.$title('Menu_History')
+    }
+  },
   extends: Pie,
   mixins: [paginationMixin],
   data: () => ({
