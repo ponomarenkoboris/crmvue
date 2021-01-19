@@ -18,10 +18,10 @@
         v-model="page"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
-        :prev-text="'Назад'"
-        :next-text="'Вперёд'"
+        :prev-text="'PaginationBack' | localize"
+        :next-text="'PaginationForvard' | localize"
         :container-class="'pagination'" 
-        :page-class="'waves-effect'"
+        :page-class="'waves-effect'" 
       />
     </section>
   </div>
